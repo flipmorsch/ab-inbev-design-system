@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flipmorsch-ab-inbev-design-system-service
+  namespace: default
+spec:
+  selector:
+    app: flipmorsch-ab-inbev-design-system
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 3000
+      protocol: TCP

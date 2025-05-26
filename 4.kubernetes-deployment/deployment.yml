@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flipmorsch-ab-inbev-design-system-deploy
+spec:
+  selector:
+    matchLabels:
+      app: flipmorsch-ab-inbev-design-system
+  replicas: 3 # According to demand needed
+  template:
+    metadata:
+      labels:
+        app: flipmorsch-ab-inbev-design-system
+    spec:
+      containers:
+        - name: flipmorsch-ab-inbev-design-system
+          image: gcr.io/flipmorsch-ab-inbev-design-system:latest # Image registry path
+          securityContext:
+            allowPrivilegeEscalation: false # No root access
+          envFrom:
+            - configMapRef:
+                name: flipmorsch-ab-inbev-design-system-config # ConfigMap name
+            - secretRef:
+                name: flipmorsch-ab-inbev-design-system-secret # Secret name
+          resources: # Resources limits according to needs
+            requests:
+              memory: '256Mi'
+              cpu: '250m'
+            limits:
+              memory: '512Mi'
+              cpu: '500m'
